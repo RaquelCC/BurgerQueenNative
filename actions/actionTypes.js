@@ -1,0 +1,5 @@
+export const AGREGAR_ITEM_MENU = "AGREGAR ITEM MENU";
+export const ELIMINAR_ITEM_MENU = "ELIMINAR ITEM MENU";
+export const CAMBIAR_PANTALLA = "CAMBIAR PANTALLA"
+export const LOGIN_USER = "LOGIN USER"
+export const LOGOUT = "LOGOUT"
