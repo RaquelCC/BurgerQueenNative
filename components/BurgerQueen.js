@@ -5,6 +5,8 @@ import { changeScreen, loginUser, logout } from '../actions/burgerQueenActions';
 import Login from './Login';
 import { View } from 'react-native';
 import SideMenu from './SideMenu';
+import EditarUsuarios from './EditarUsuarios';
+import EditarMenu from './EditarMenu';
 
 class BurgerQueen extends React.Component {
     // constructor(props) {
@@ -15,9 +17,11 @@ class BurgerQueen extends React.Component {
 
     render() {
         return (
-            <View>
+            <View style={{height: "100%"}}>
                 {this.props.burgerQueenReducers.logedUser && <SideMenu />}
                 {!this.props.burgerQueenReducers.logedUser && <Login />}
+                {this.props.burgerQueenReducers.currentScreen === "EDITAR USUARIOS" && <EditarUsuarios />}
+                {this.props.burgerQueenReducers.currentScreen === "EDITAR MENU" && <EditarMenu />}
 
             </View>
         )

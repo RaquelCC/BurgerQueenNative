@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-nativ
 import { connect } from 'react-redux';
 import { agregarItemMenu } from '../actions/waitersActions';
 import { changeScreen, loginUser, logout } from '../actions/burgerQueenActions';
+import { AsyncStorage } from 'react-native';
 
 class Login extends React.Component {
     constructor(props) {
@@ -16,6 +17,18 @@ class Login extends React.Component {
         this.handleUserInput = this.handleUserInput.bind(this);
         this.handlePwdInput = this.handlePwdInput.bind(this);
         this.login = this.login.bind(this);
+    }
+
+    componentDidMount() {
+        AsyncStorage.multiGet(['token', 'admin'])
+        .then(data => {
+            if (data) {
+                this.props.loginUserAccion({
+                    token: data[0][1],
+                    admin: data[1][1],
+                })
+            }
+        })
     }
 
     login() {
@@ -62,6 +75,10 @@ class Login extends React.Component {
                         token: this.state.token,
                         admin: admin,
                     })
+                    return admin
+                })
+                .then((admin) => {
+                    AsyncStorage.multiSet([["token",this.state.token],["admin", admin.toString()]])
                 })
                 .catch(error => {
                     console.log(error)
@@ -132,7 +149,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: "center",
         justifyContent: "center"
-
     }
 })
 

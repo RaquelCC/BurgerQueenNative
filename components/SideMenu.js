@@ -4,6 +4,8 @@ import { StyleSheet, View, TouchableOpacity, Text, Dimensions } from 'react-nati
 import { Header } from 'react-native-elements';
 import { agregarItemMenu } from '../actions/waitersActions';
 import { changeScreen, loginUser, logout } from '../actions/burgerQueenActions';
+import { AsyncStorage } from 'react-native';
+
 
 
 class SideMenu extends React.Component {
@@ -56,7 +58,9 @@ class SideMenu extends React.Component {
                     }}>EDITAR USUARIOS</Text></TouchableOpacity>}
                     <TouchableOpacity style={{ ...styles.menuOption, borderTopWidth: 1, borderBottomWidth: 1 }}><Text style={{ color: "white", fontSize: 20, fontWeight: "700" }} onPress={() => {
                         this.handleClickSideMenu()
-                        this.props.logoutAccion()
+                        AsyncStorage.multiRemove(["token", "admin"], () => {
+                            this.props.logoutAccion()
+                        })
                     }}>CERRAR SESIÓN</Text></TouchableOpacity>
                 </View>}
             </View>
@@ -66,12 +70,13 @@ class SideMenu extends React.Component {
 
 const styles = StyleSheet.create({
     menuContainer: {
-        height: Dimensions.get('window').height,
+        height: Dimensions.get('window').height * 0.9,
         width: "60%",
         backgroundColor: "#2f89fc",
         justifyContent: "center",
         alignItems: "center",
-        position: "absolute"
+        // position: "absolute",
+        zIndex: 20,
 
     },
     menuOption: {
