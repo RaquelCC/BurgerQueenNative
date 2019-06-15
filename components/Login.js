@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { agregarItemMenu } from '../actions/waitersActions';
+import { agregarItemMenu, fillMenu } from '../actions/waitersActions';
 import { changeScreen, loginUser, logout } from '../actions/burgerQueenActions';
 import { AsyncStorage } from 'react-native';
 
@@ -31,9 +31,10 @@ class Login extends React.Component {
         })
     }
 
+    
     login() {
         console.log("iniciando sesión")
-        fetch("http://172.20.10.2:8080/auth", {
+        fetch("http://192.168.1.102:8080/auth", {
             method: "POST",
             body: JSON.stringify({
                 "email": this.state.user,
@@ -51,7 +52,7 @@ class Login extends React.Component {
                 ...this.state,
                 token: data.token
             }, () => {
-                fetch("http://172.20.10.2:8080/users/"+this.state.user,
+                fetch("http://192.168.1.102:8080/users/"+this.state.user,
                 {
                     method: "GET",
                     // body: JSON.stringify({
@@ -71,9 +72,11 @@ class Login extends React.Component {
                     if (data.roles) {
                         admin = data.roles.admin;
                     }
+                    // console.log("user: "+this.state.user)
                     this.props.loginUserAccion({
                         token: this.state.token,
                         admin: admin,
+                        userAccount: this.state.user,
                     })
                     return admin
                 })
@@ -164,6 +167,7 @@ const mapDispatchToProps = dispatch => ({
     changeScreenAccion: changeScreen(dispatch),
     loginUserAccion : loginUser(dispatch),
     logoutAccion: logout(dispatch),
+    fillMenuAccion: fillMenu(dispatch),
 
 });
 

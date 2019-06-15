@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { agregarItemMenu } from '../actions/waitersActions';
+import { agregarItemMenu, fillMenu } from '../actions/waitersActions';
 import { changeScreen, loginUser, logout } from '../actions/burgerQueenActions';
 import { StyleSheet, ScrollView, Text, View, TextInput, TouchableOpacity } from 'react-native';
 // import { Icon } from 'react-native-elements';
@@ -30,31 +30,31 @@ class EditarMenu extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://172.20.10.2:8080/products",
-            {
-                method: "GET",
-                // body: JSON.stringify({
-                //     "email": this.state.user,
-                //     "password": this.state.pwd
-                // }),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + this.props.burgerQueenReducers.logedUser
-                }
-            })
-            .then(data => data.json())
-            .then(data => {
-                this.setState({
-                    ...this.state,
-                    products: data,
-                }, () => console.log(this.state.products))
-            })
-            .catch(error => console.log(error))
+        // fetch("http://192.168.1.102:8080/products",
+        //     {
+        //         method: "GET",
+        //         // body: JSON.stringify({
+        //         //     "email": this.state.user,
+        //         //     "password": this.state.pwd
+        //         // }),
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'Authorization': 'Bearer ' + this.props.burgerQueenReducers.logedUser
+        //         }
+        //     })
+        //     .then(data => data.json())
+        //     .then(data => {
+        //         this.setState({
+        //             ...this.state,
+        //             products: data,
+        //         }, () => console.log(this.state.products))
+        //     })
+        //     .catch(error => console.log(error))
     }
 
     deleteProduct(product) {
         // console.log(product)
-        fetch("http://172.20.10.2:8080/products/" + product,
+        fetch("http://192.168.1.102:8080/products/" + product,
             {
                 method: "DELETE",
                 // body: JSON.stringify({
@@ -69,10 +69,11 @@ class EditarMenu extends React.Component {
             .then(data => data.json())
             .then(data => {
                 console.log(data)
-                this.setState({
-                    ...this.state,
-                    products: data
-                }, () => console.log(this.state.products))
+                this.props.fillMenuAccion(data)
+                // this.setState({
+                //     ...this.state,
+                //     products: data
+                // }, () => console.log(this.state.products))
             })
             .catch(error => console.log(error))
     }
@@ -107,7 +108,7 @@ class EditarMenu extends React.Component {
     }
 
     addProduct() {
-        fetch("http://172.20.10.2:8080/products/",
+        fetch("http://192.168.1.102:8080/products/",
             {
                 method: "POST",
                 body: JSON.stringify({
@@ -123,6 +124,7 @@ class EditarMenu extends React.Component {
             .then(data => data.json())
             .then(data => {
                 console.log(data)
+                this.props.fillMenuAccion(data)
                 this.setState({
                     ...this.state,
                     products: data,
@@ -136,7 +138,7 @@ class EditarMenu extends React.Component {
 
 
     renderItems() {
-        const renderedProducts = this.state.products.map(item => {
+        const renderedProducts = this.props.waitersReducers.bqMenu.map(item => {
             return (
                 <EditableProduct item={item} deleteProduct={this.deleteProduct} updateInfo={this.updateInfo}/>
                 // <View style={styles.productsContainer}>
@@ -257,6 +259,7 @@ const mapDispatchToProps = dispatch => ({
     changeScreenAccion: changeScreen(dispatch),
     loginUserAccion: loginUser(dispatch),
     logoutAccion: logout(dispatch),
+    fillMenuAccion: fillMenu(dispatch),
 });
 
 export default

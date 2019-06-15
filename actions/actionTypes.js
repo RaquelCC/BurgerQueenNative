@@ -4,3 +4,4 @@ export const CAMBIAR_PANTALLA = "CAMBIAR PANTALLA";
 export const LOGIN_USER = "LOGIN USER";
 export const LOGOUT = "LOGOUT";
 export const GET_USERS = "GET USERS";
+export const FILL_BQMENU = "FILL BQMENU";

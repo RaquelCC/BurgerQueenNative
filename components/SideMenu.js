@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, TouchableOpacity, Text, Dimensions } from 'react-native';
 import { Header } from 'react-native-elements';
-import { agregarItemMenu } from '../actions/waitersActions';
+import { agregarItemMenu, fillMenu } from '../actions/waitersActions';
 import { changeScreen, loginUser, logout } from '../actions/burgerQueenActions';
 import { AsyncStorage } from 'react-native';
 
@@ -104,6 +104,7 @@ const mapDispatchToProps = dispatch => ({
     changeScreenAccion: changeScreen(dispatch),
     loginUserAccion: loginUser(dispatch),
     logoutAccion: logout(dispatch),
+    fillMenuAccion: fillMenu(dispatch),
 });
 
 export default

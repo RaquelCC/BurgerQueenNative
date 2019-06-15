@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { agregarItemMenu } from '../actions/waitersActions';
+import { agregarItemMenu, fillMenu } from '../actions/waitersActions';
 import { changeScreen, loginUser, logout } from '../actions/burgerQueenActions';
 import { StyleSheet, ScrollView, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -25,7 +25,7 @@ class EditarUsuarios extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://172.20.10.2:8080/users",
+        fetch("http://192.168.1.102:8080/users",
             {
                 method: "GET",
                 // body: JSON.stringify({
@@ -84,7 +84,7 @@ class EditarUsuarios extends React.Component {
     }
 
     deleteUser(uid) {
-        fetch("http://172.20.10.2:8080/users/"+uid,
+        fetch("http://192.168.1.102:8080/users/"+uid,
         {
             method: "DELETE",
             // body: JSON.stringify({
@@ -107,7 +107,7 @@ class EditarUsuarios extends React.Component {
     }
 
     addUser() {
-        fetch("http://172.20.10.2:8080/users/",
+        fetch("http://192.168.1.102:8080/users/",
         {
             method: "POST",
             body: JSON.stringify({
@@ -214,6 +214,7 @@ const mapDispatchToProps = dispatch => ({
     changeScreenAccion: changeScreen(dispatch),
     loginUserAccion: loginUser(dispatch),
     logoutAccion: logout(dispatch),
+    fillMenuAccion: fillMenu(dispatch),
 });
 
 export default

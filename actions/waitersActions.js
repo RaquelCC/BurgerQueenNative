@@ -30,3 +30,10 @@ export const agregarItemMenu = dispatch => (item, price, currentContents) => { /
         }
     });
 };
+
+export const fillMenu = dispatch => menuContents => {
+    dispatch({
+        type: actions.FILL_BQMENU,
+        payload: menuContents
+    })
+}

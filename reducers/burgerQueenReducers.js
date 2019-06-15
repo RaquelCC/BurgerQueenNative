@@ -5,6 +5,7 @@ export default (
     currentScreen: "GARZONES",
     logedUser: false,
     admin: false,
+    userAccount: false,
 },
     action
 ) => {
@@ -19,7 +20,8 @@ export default (
             return {
                 ...state,
                 logedUser: action.payload.token,
-                admin: action.payload.admin
+                admin: action.payload.admin,
+                userAccount: action.payload.userAccount
             }
         case actions.LOGOUT:
             return {

@@ -10,7 +10,8 @@ export default (
                 ready: false,
                 delivered: false,
             },
-            inputName: ''
+            inputName: '',
+            bqMenu: []
     },
     action
 ) => {
@@ -24,6 +25,11 @@ export default (
                     contents: action.payload.contents,
                     total: state.currentOrder.total + action.payload.price,
                 }
+            }
+        case actions.FILL_BQMENU:
+            return {
+                ...state,
+                bqMenu: action.payload
             }
         default:
             return {...state}

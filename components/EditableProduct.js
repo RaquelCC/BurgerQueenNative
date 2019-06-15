@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { agregarItemMenu } from '../actions/waitersActions';
+import { agregarItemMenu, fillMenu } from '../actions/waitersActions';
 import { changeScreen, loginUser, logout } from '../actions/burgerQueenActions';
 
 class EditableProduct extends React.Component {
@@ -186,6 +186,7 @@ const mapDispatchToProps = dispatch => ({
     changeScreenAccion: changeScreen(dispatch),
     loginUserAccion: loginUser(dispatch),
     logoutAccion: logout(dispatch),
+    fillMenuAccion: fillMenu(dispatch),
 });
 
 export default
